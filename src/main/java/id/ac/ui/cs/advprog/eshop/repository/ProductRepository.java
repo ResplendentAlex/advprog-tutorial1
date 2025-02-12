@@ -16,21 +16,25 @@ public class ProductRepository {
         return product;
     }
 
-    // Update needed only for ArrayList, return statements are not needed
-    public void delete(Product product) {
+    // boolean is used to check whether the deletion has been successful
+    public boolean delete(Product product) {
         Product currentProduct = findById(product.getProductId());
         if (currentProduct != null) {
             productData.remove(currentProduct);
+            return true;
         }
+        return false;
     }
 
-    // Update needed only for ArrayList, return statements are not needed
-    public void edit(Product product) {
+    // boolean is used to check whether the product has been updated successfully
+    public boolean edit(Product product) {
         Product currentProduct = findById(product.getProductId());
         if (currentProduct != null) {
             currentProduct.setProductName(product.getProductName());
             currentProduct.setProductQuantity(product.getProductQuantity());
+            return true;
         }
+        return false;
     }
 
     public Iterator<Product> findAll() {
