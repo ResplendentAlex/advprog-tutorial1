@@ -16,6 +16,13 @@ public class ProductRepository {
         return product;
     }
 
+    public void delete(Product product) {
+        Product currentProduct = findById(product.getProductId());
+        if (currentProduct != null) {
+            productData.remove(currentProduct);
+        }
+    }
+
     public Product edit(Product product) {
         Product currentProduct = findById(product.getProductId());
         if (currentProduct != null) {
