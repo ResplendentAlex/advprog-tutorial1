@@ -11,6 +11,7 @@ public class Product {
     private String productName;
     private int productQuantity;
 
+    // Usage of UUID to prevent duplicates of ID
     public Product(){
         this.productId = UUID.randomUUID().toString();
     }

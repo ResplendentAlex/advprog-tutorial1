@@ -16,6 +16,7 @@ public class ProductRepository {
         return product;
     }
 
+    // Update needed only for ArrayList, return statements are not needed
     public void delete(Product product) {
         Product currentProduct = findById(product.getProductId());
         if (currentProduct != null) {
@@ -23,20 +24,21 @@ public class ProductRepository {
         }
     }
 
-    public Product edit(Product product) {
+    // Update needed only for ArrayList, return statements are not needed
+    public void edit(Product product) {
         Product currentProduct = findById(product.getProductId());
         if (currentProduct != null) {
             currentProduct.setProductName(product.getProductName());
             currentProduct.setProductQuantity(product.getProductQuantity());
         }
-
-        return currentProduct;
     }
 
     public Iterator<Product> findAll() {
         return productData.iterator();
     }
 
+    // Opted for a simpler for-loop implementation instead of using iterator
+    // This aims to help people understand the code better
     public Product findById(String id) {
         Product currentProduct = productData.getFirst();
         if (currentProduct.getProductId().equals(id)) {
