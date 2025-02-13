@@ -13,3 +13,24 @@ Below are listed the evaluations I have made in accordance to clean code princip
 
 **Secure Coding**
 1. **Input data validation** - this is one of the vulnerable part of the source code. If taken a look at carefully, there is no input or data validation implemented when users create products. This means that it would be possible for users with malicious intents to enter "evil inputs" that might break or even lead to security risks.
+
+### Reflection 2
+1. After writing the unit test, I realize just how useful they are. While it may seem to look useless at first, 
+I find that it became increasingly more useful when I actually ran it completely. This is because unit tests have 
+allowed me to quickly detect which part of the code is problematic and causing the error or bug. 
+This saves me a lot of debugging time, which I might be spending on trying to find the problematic part of the code otherwise.
+However, I also realize that there are still limitations to unit testing. While we may be able to completely do testing
+over the whole source code, it only tests for each function separately. This means that it will not be able to ensure that there will be
+no errors or bugs when they work functionally together, even if we have a 100% coverage unit tests. Of course, with a 100%
+coverage we can at least ensure that we minimize the risk of a single part of the code failing by its own, and to achieve this 100%, it is best
+that we have at least two positive and one negative scenario of each unit test. We can also make sure that our unit tests are 
+enough to verify our program is simply by making sure that all possible scenario is covered by our unit tests. This would
+be good enough to minimize the chances of problems occurring in most scenario.
+
+
+2. If we have a different functional test but with the same setup procedures and instantiation variables, I think that it would be
+much more effective if we opt to add the functional test into the same CreateProductFunctionalTest.java file. This prevents the possible
+arise of confusion due to duplicates which actually violate clean code principles. For this reason, I think it would be better if we
+include that functional test into the same test suite, with comments for clarification on the decision of why we included it in the same
+test suite. This way, we could prevent duplicates, as well as provide a clearer explanation for other programmers that might need to use
+the test suite.
