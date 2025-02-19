@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SeleniumJupiter.class)
@@ -54,7 +55,10 @@ public class ProductControllerTest {
         options.addArguments("--headless==new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--user-data-dir=" + System.getProperty("java.io.tmpdir") + "/chrome-profile");
+
+        // Generate a unique user data directory
+        String uniqueProfileDir = System.getProperty("java.io.tmpdir") + "/chrome-profile-" + UUID.randomUUID();
+        options.addArguments("--user-data-dir=" + uniqueProfileDir);
 
         driver = new ChromeDriver(options);
     }
