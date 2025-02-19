@@ -1,0 +1,187 @@
+package id.ac.ui.cs.advprog.eshop.controller;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import io.github.bonigarcia.seljup.SeleniumJupiter;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
+import java.util.List;
+import java.util.UUID;
+
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+@ExtendWith(SeleniumJupiter.class)
+
+public class ProductControllerTest {
+    /**
+     * The port number assigned to the running application during test execution.
+     * Set automatically during each test run bby Spring Framework's test context.
+     */
+    @LocalServerPort
+    private int serverPort;
+
+    private WebDriver driver;
+
+    /**
+     * The base URL for testing. Default to {@code http://localhost}.
+     */
+    @Value("${app.baseUrl:http://localhost}")
+    private String testBaseUrl;
+
+    private String baseUrl;
+
+    @BeforeEach
+    void setUp() {
+        baseUrl = String.format("%s:%d", testBaseUrl, serverPort);
+
+        WebDriverManager.chromedriver().setup();
+
+        ChromeOptions options = new ChromeOptions();
+
+        options.addArguments("--headless==new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
+        // Generate a unique user data directory
+        String uniqueProfileDir = System.getProperty("java.io.tmpdir") + "/chrome-profile-" + UUID.randomUUID();
+        options.addArguments("--user-data-dir=" + uniqueProfileDir);
+
+        driver = new ChromeDriver(options);
+    }
+
+
+    @Test
+    void testOpenCreateProductPage() throws Exception {
+        // Exercise
+        driver.get(baseUrl);
+
+        WebElement productListButton = driver.findElement(By.className("btn-primary"));
+        productListButton.click();
+
+        WebElement createProductButton = driver.findElement(By.className("btn-primary"));
+        createProductButton.click();
+
+        String title = driver.getTitle();
+
+        // Verify
+        assertEquals("Create New Product", title);
+    }
+
+    @Test
+    void testCreateProduct() throws Exception {
+        // Exercise
+        driver.get(baseUrl);
+
+        WebElement productListButton = driver.findElement(By.className("btn-primary"));
+        productListButton.click();
+
+        WebElement createProductButton = driver.findElement(By.className("btn-primary"));
+        createProductButton.click();
+
+        String productName = "Sampo Cap Bambang";
+        String productQuantity = "100";
+
+        WebElement productNameInput = driver.findElement(By.id("nameInput"));
+        productNameInput.sendKeys(productName);
+        WebElement productQuantityInput = driver.findElement(By.id("quantityInput"));
+        productQuantityInput.sendKeys(productQuantity);
+
+        WebElement submitButton = driver.findElement(By.className("btn-primary"));
+        submitButton.click();
+
+        WebElement productNameOnList = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", productName)));
+        WebElement productQuantityOnList = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", productQuantity)));
+
+        // Verify
+        assertNotNull(productNameOnList);
+        assertNotNull(productQuantityOnList);
+    }
+
+    @Test
+    void testOpenEditProductPage() throws Exception {
+        driver.get(baseUrl);
+
+        WebElement productListButton = driver.findElement(By.className("btn-primary"));
+        productListButton.click();
+
+        WebElement createProductButton = driver.findElement(By.className("btn-primary"));
+        createProductButton.click();
+
+        String productName = "Sampo Cap Bambang";
+        String productQuantity = "100";
+
+        WebElement productNameInput = driver.findElement(By.id("nameInput"));
+        productNameInput.sendKeys(productName);
+        WebElement productQuantityInput = driver.findElement(By.id("quantityInput"));
+        productQuantityInput.sendKeys(productQuantity);
+        WebElement submitButton = driver.findElement(By.className("btn-primary"));
+        submitButton.click();
+
+        WebElement editProductButton = driver.findElement(By.id("editButton"));
+        editProductButton.click();
+
+        String newProductName = "Sampo Cap Asep";
+        String newProductQuantity = "50";
+
+        WebElement newProductNameInput = driver.findElement(By.id("nameInput"));
+        newProductNameInput.clear();
+        newProductNameInput.sendKeys(newProductName);
+        WebElement newProductQuantityInput = driver.findElement(By.id("quantityInput"));
+        newProductQuantityInput.clear();
+        newProductQuantityInput.sendKeys(newProductQuantity);
+        WebElement newSubmitButton = driver.findElement(By.className("btn-primary"));
+        newSubmitButton.click();
+
+        WebElement productNameOnList = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", newProductName)));
+        WebElement productQuantityOnList = driver.findElement(By.xpath(String.format("//td[contains(text(),'%s')]", newProductQuantity)));
+
+        // Verify
+        assertNotNull(productNameOnList);
+        assertNotNull(productQuantityOnList);
+    }
+
+    @Test
+    void testDeleteProduct() throws Exception {
+        driver.get(baseUrl);
+
+        WebElement productListButton = driver.findElement(By.className("btn-primary"));
+        productListButton.click();
+
+        WebElement createProductButton = driver.findElement(By.className("btn-primary"));
+        createProductButton.click();
+
+        String productName = "Sampo Cap Bambang";
+        String productQuantity = "100";
+
+        WebElement productNameInput = driver.findElement(By.id("nameInput"));
+        productNameInput.sendKeys(productName);
+        WebElement productQuantityInput = driver.findElement(By.id("quantityInput"));
+        productQuantityInput.sendKeys(productQuantity);
+        WebElement submitButton = driver.findElement(By.className("btn-primary"));
+        submitButton.click();
+
+        WebElement deleteProductButton = driver.findElement(By.id("deleteButton"));
+        deleteProductButton.click();
+
+        Alert confirmAlert = driver.switchTo().alert();
+        confirmAlert.accept();
+
+        List<WebElement> newProductRow = driver.findElements(By.tagName("tr"));
+        assertEquals(2, newProductRow.size());
+    }
+
+}
