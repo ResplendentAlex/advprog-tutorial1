@@ -1,13 +1,16 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import io.github.bonigarcia.seljup.SeleniumJupiter;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -30,6 +33,8 @@ public class ProductControllerTest {
     @LocalServerPort
     private int serverPort;
 
+    private WebDriver driver;
+
     /**
      * The base URL for testing. Default to {@code http://localhost}.
      */
@@ -41,10 +46,22 @@ public class ProductControllerTest {
     @BeforeEach
     void setUp() {
         baseUrl = String.format("%s:%d", testBaseUrl, serverPort);
+
+        WebDriverManager.chromedriver().setup();
+
+        ChromeOptions options = new ChromeOptions();
+
+        options.addArguments("--headless==new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--user-data-dir=" + System.getProperty("java.io.tmpdir") + "/chrome-profile");
+
+        driver = new ChromeDriver(options);
     }
 
+
     @Test
-    void testOpenCreateProductPage(ChromeDriver driver) throws Exception {
+    void testOpenCreateProductPage() throws Exception {
         // Exercise
         driver.get(baseUrl);
 
@@ -61,7 +78,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    void testCreateProduct(ChromeDriver driver) throws Exception {
+    void testCreateProduct() throws Exception {
         // Exercise
         driver.get(baseUrl);
 
@@ -91,7 +108,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    void testOpenEditProductPage(ChromeDriver driver) throws Exception {
+    void testOpenEditProductPage() throws Exception {
         driver.get(baseUrl);
 
         WebElement productListButton = driver.findElement(By.className("btn-primary"));
@@ -134,7 +151,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    void testDeleteProduct(ChromeDriver driver) throws Exception {
+    void testDeleteProduct() throws Exception {
         driver.get(baseUrl);
 
         WebElement productListButton = driver.findElement(By.className("btn-primary"));
