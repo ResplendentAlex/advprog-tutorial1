@@ -30,7 +30,7 @@ name: SonarCloud analysis
 
 on:
   push:
-  pull-request:
+  pull_request:
 
 permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
