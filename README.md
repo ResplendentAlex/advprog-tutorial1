@@ -34,3 +34,14 @@ arise of confusion due to duplicates which actually violate clean code principle
 include that functional test into the same test suite, with comments for clarification on the decision of why we included it in the same
 test suite. This way, we could prevent duplicates, as well as provide a clearer explanation for other programmers that might need to use
 the test suite.
+
+
+### Reflection 3
+1. There's only one fix that is made to the codebase for code quality. The issue previously was due to the inconsistent
+naming convention on the HomeController Java class. The HomeController class contains a method that is named with first letters
+in upper case, while other methods are using camel case. This inconsistency in the code needs to be fixed to improve readibility.
+
+
+2. I believe the current implementation has already met the definition of CI/CD. There is continuous integration
+in which is achieved through the code analysis  for every push and pull requests that is made to the main branch as well
+as other branches. There is also continuous delivery which builds in the Koyeb host every time a new push is made into the main branch.
