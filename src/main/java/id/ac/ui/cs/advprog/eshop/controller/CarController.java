@@ -44,7 +44,7 @@ public class CarController {
         return "EditCar";
     }
 
-    @PostMapping("/editCar")
+    @PostMapping("/editCar/{carId}")
     public String editCarPost(@ModelAttribute Car car, @PathVariable String carId) {
         car.setCarId(carId);
         carService.update(carId, car);
