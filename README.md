@@ -45,3 +45,42 @@ in upper case, while other methods are using camel case. This inconsistency in t
 2. I believe the current implementation has already met the definition of CI/CD. There is continuous integration
 in which is achieved through the code analysis  for every push and pull requests that is made to the main branch as well
 as other branches. There is also continuous delivery which builds in the Koyeb host every time a new push is made into the main branch.
+
+
+### Reflection 4
+1. Explain what principles you apply to your project!
+    - Single Responsibility Principle (SRP) - Previously, the car controller code is included into ProductController java class. This violates the SRP
+   principle. This is because the SRP states that each package should only have one responsibility, while with the current
+   code, ProductController has two. To fix this, I removed the car controller code from the ProductController file, and 
+   made a new file called CarController that contains the car controller code.
+   - Open/Closed Principle (OCP) - The repository files are made into interfaces that the ProductRepository and CarRepository
+   can then implement. This would allow the ability to do addition into the code without changing the previous contents.
+   - Interface Segregation Principle - The interfaces that are used for the repositories file are separated further into
+   the Read type and the Write type with each type of file having their own responsibilities in the program.
+   - Dependency Inversion Principle (DP) - The services and controller files for each of the Model are now using a 
+   Repository interface file instead of using the Product and Car repositories directly. By doing this, we will be able
+   to change the repository implementation without affecting any other part of the code.
+   
+2. Explain the advantages of applying SOLID principles to your project with examples.
+   - SRP - each controller now have their respective responsibilities, namely for each of their own models. This 
+   would help in separating the logical functionality needed for each controller of the Model. This also prevents a 
+   single file to be extremely long and packed, providing programmers with a much more maintainable code.
+   - OCP - adding new features into the program can now be easily implemented without having to be mindful of whether 
+   other part of the code should also be modified. This would create a codebase environment that could easily be extended.
+   - ISP - Since the interfaces are now separated, we can now implement only certain methods without having to deal with
+   methods that are not needed in each of the interface. This would create a codebase that is easily maintainable.
+   - DP - Changing one part of the code from the separated repository will not affect the other repositories. This also
+   means that we would not need to change any part of the other repositories that does not need the method that are added
+   into another repository. By doing this, the codebase would be much more maintainable and be open for extension.
+
+3. Explain the disadvantages of not applying SOLID principles to your project with examples.
+   - SRP - Since the controller are in one same file, it would be hard to make large modifications into the codebase. This
+   is mainly because code that are all made in a single file would be harder to maintain, and if any bug happen to 
+   appear when making modifications, it would take quite a while to debug the wrong code.
+   - OCP - If the repositories are not in separate files, then everytime we need to add new repositories, we would need
+   to modify the whole file. This would certainly be much less efficient when we wish to make larger modifications.
+   - ISP - Creating interfaces that are in one same file, and then implementing it directly on each of the model's 
+   repository files, would cause the code to be less maintainable. This is because any new implementation into the interface,
+   other interfaces are forced to have implemented methods that are not needed.
+   - DP - Tightly coupling with the repository if we opt to use the repository files directly without separating it. This
+   would be harder to maintain as tiny modifications might force us to make modifications to the other repositories as well.
