@@ -8,22 +8,38 @@ import java.util.Iterator;
 import java.util.List;
 
 @Repository
-public class ProductRepository {
-    private List<Product> productData = new ArrayList<>();
+public class ProductRepository implements RepositoryImpl<Product> {
+    private List<Product> productData;
+
+    public ProductRepository() {
+        productData = new ArrayList<>();
+    }
 
     public Product create(Product product) {
+        String productId = productData.size() + 1 + "";
+        product.setProductId(productId);
         productData.add(product);
         return product;
     }
 
-    // boolean is used to check whether the deletion has been successful
-    public boolean delete(Product product) {
-        Product currentProduct = findById(product.getProductId());
+    public Product update(String productId, Product newProductData) {
+        Product productToEdit = findById(productId);
+
+        if (productToEdit != null) {
+            productToEdit.setProductName(newProductData.getProductName());
+            productToEdit.setProductQuantity(newProductData.getProductQuantity());
+        }
+
+        return productToEdit;
+    }
+
+    public Product delete(String productId) {
+        Product currentProduct = findById(productId);
         if (currentProduct != null) {
             productData.remove(currentProduct);
-            return true;
+            return currentProduct;
         }
-        return false;
+        return null;
     }
 
     // boolean is used to check whether the product has been updated successfully

@@ -83,7 +83,7 @@ public class ProductRepositoryTest {
 
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
-        productRepository.delete(product);
+        productRepository.delete(product.getProductId());
         assertFalse(productIterator.hasNext());
     }
 
@@ -102,7 +102,7 @@ public class ProductRepositoryTest {
 
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
-        assertFalse(productRepository.delete(product2));
+        assertNull(productRepository.delete(product2.getProductId()));
         assertTrue(productIterator.hasNext());
     }
 
@@ -122,9 +122,9 @@ public class ProductRepositoryTest {
 
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
-        productRepository.delete(product);
+        productRepository.delete(product.getProductId());
         assertTrue(productIterator.hasNext());
-        productRepository.delete(product2);
+        productRepository.delete(product2.getProductId());
         assertFalse(productIterator.hasNext());
     }
 

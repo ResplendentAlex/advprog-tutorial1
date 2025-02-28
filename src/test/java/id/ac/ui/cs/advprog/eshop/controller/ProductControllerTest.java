@@ -183,5 +183,4 @@ public class ProductControllerTest {
         List<WebElement> newProductRow = driver.findElements(By.tagName("tr"));
         assertEquals(2, newProductRow.size());
     }
-
 }
