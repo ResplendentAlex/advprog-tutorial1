@@ -48,7 +48,7 @@ public class CarController {
     public String editCarPost(@ModelAttribute Car car, @PathVariable String carId) {
         car.setCarId(carId);
         carService.update(carId, car);
-        return "redirect:listCar";
+        return "redirect:/car/listCar";
     }
 
     @PostMapping("deleteCar")
