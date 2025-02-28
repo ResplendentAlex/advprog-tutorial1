@@ -19,6 +19,7 @@ public class CarServiceImpl implements CarService {
         carRepository.create(car);
         return car;
     }
+
     @Override
     public List<Car> findAll() {
         Iterator<Car> carIterator = carRepository.findAll();
@@ -26,15 +27,19 @@ public class CarServiceImpl implements CarService {
         carIterator.forEachRemaining(allCar::add);
         return allCar;
     }
+
+
     @Override
     public Car findById(String carId) {
         Car car = carRepository.findById(carId);
         return car;
     }
+
     @Override
     public void update(String carId, Car car) {
         carRepository.update(carId, car);
     }
+
     @Override
     public void deleteCarById(String carId) {
         carRepository.delete(carId);

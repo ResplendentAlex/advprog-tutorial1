@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
+import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,17 +38,16 @@ public class CarController {
     }
 
     @GetMapping("/editCar/{carId}")
-    public String editCarPage(@PathVariable String carId, Model model) {
+    public String editCarPage(@PathVariable("carId") String carId, Model model) {
         Car car = carService.findById(carId);
         model.addAttribute("car", car);
         return "EditCar";
     }
 
     @PostMapping("/editCar")
-    public String editCarPost(@ModelAttribute Car car, Model model) {
-        System.out.println(car.getCarId());
-        carService.update(car.getCarId(), car);
-
+    public String editCarPost(@ModelAttribute Car car, @PathVariable String carId) {
+        car.setCarId(carId);
+        carService.update(carId, car);
         return "redirect:listCar";
     }
 
