@@ -84,3 +84,33 @@ as other branches. There is also continuous delivery which builds in the Koyeb h
    other interfaces are forced to have implemented methods that are not needed.
    - DP - Tightly coupling with the repository if we opt to use the repository files directly without separating it. This
    would be harder to maintain as tiny modifications might force us to make modifications to the other repositories as well.
+
+
+### Reflection 5
+1. Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” 
+submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, 
+explain things that you need to do next time you make more tests.
+   
+I believe that the TDD flow is useful enough for me to start with the basics of implementing TDD in my development cycle.
+This is because, with a solid and clear guideline on what I should be focusing on about, I would be able to find what
+really matters in the current scope of my iteration, allowing me to see the bigger picture that includes the user. Not
+only that, I think that with this flow, I can find a qualitative measurement of how much further I need to test my software
+to provide me with the highest assurance that everything will work as intended by the original design. However, I think
+it's also good that I find what suits my coding style best as I continue with TDD implementation. For instance, I might
+find other development cycle and try to mix and match it with the current TDD flow so that I might get a better style that 
+suits me. This would help me create a stronger foundation that would help me in my programming journey in software development.
+
+2. You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle 
+or not. If not, explain things that you need to do the next time you create more tests.
+
+I think that the current unit tests implemented in the Tutorial have follow the F.I.R.S.T principles. It has followed:
+- Fast - it does not take too much time to run the tests, hence allowing me to continue to the next step of my workflow
+quickly. 
+- Isolated - the tests are independent of each other - no return values of one test is needed for another. 
+- Repeatable - no matter how many times the tests are run, results would consistently show success.
+- Self-validating - all inputs and results are made sure to be correct and accurate by using assertions on each of them.
+- Timely - the tests are designed before the implementation of each class is started.
+
+It is an undeniable fact, however, that I still require more practice in TDD as I still find it counterintuitive to make 
+tests on something that has yet to be implemented. It feels like creating an experiment for a hypothesis that has not been
+formulated, thus my mindset.
