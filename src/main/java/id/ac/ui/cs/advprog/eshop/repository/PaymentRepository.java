@@ -1,6 +1,5 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
-import enums.OrderStatus;
 import enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
@@ -17,11 +16,37 @@ public class PaymentRepository {
         this.paymentData = new ArrayList<>();
     }
 
-    public Payment addPayment(Order order, String method, Map<String, String> paymentData) {return null;}
+    public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
+        String uuid = UUID.randomUUID().toString();
+        Payment payment = new Payment(uuid, method, paymentData, order);
+        this.paymentData.add(payment);
+        return payment;
+    }
 
-    public Payment setStatus(Payment payment, String status) throws IllegalArgumentException {return null;}
+    public Payment setStatus(Payment payment, String status) throws IllegalArgumentException {
+        if (!PaymentStatus.contains(status)) {
+            throw new IllegalArgumentException();
+        }
+        payment.setStatus(status);
+        if (status.equals(PaymentStatus.REJECTED.getValue())) {
+            payment.getOrder().setStatus("FAILED");
+        } else if (status.equals(PaymentStatus.SUCCESS.getValue())) {
+            // Used extend conditions to allow for extension in case another payment status is added.
+            payment.getOrder().setStatus("SUCCESS");
+        }
+        return payment;
+    }
 
-    public Payment getPayment(String paymentId) {return null;}
+    public Payment getPayment(String paymentId) {
+        for (Payment payment : paymentData) {
+            if (payment.getId().equals(paymentId)) {
+                return payment;
+            }
+        }
+        return null;
+    }
 
-    public List<Payment> getAllPayments() {return null;}
+    public List<Payment> getAllPayments() {
+        return paymentData;
+    }
 }
