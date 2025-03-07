@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.eshop.enums;
+package enums;
 
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ public enum OrderStatus {
     CANCELLED("CANCELLED");
 
     private final String value;
-    private OrderStatus(String value) {
+    OrderStatus(String value) {
         this.value = value;
     }
 
