@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import enums.OrderStatus;
 import enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
@@ -29,10 +30,10 @@ public class PaymentRepository {
         }
         payment.setStatus(status);
         if (status.equals(PaymentStatus.REJECTED.getValue())) {
-            payment.getOrder().setStatus("FAILED");
+            payment.getOrder().setStatus(OrderStatus.FAILED.getValue());
         } else if (status.equals(PaymentStatus.SUCCESS.getValue())) {
-            // Used extend conditions to allow for extension in case another payment status is added.
-            payment.getOrder().setStatus("SUCCESS");
+            // Used extended conditions to allow for extension in case another payment status is added.
+            payment.getOrder().setStatus(OrderStatus.SUCCESS.getValue());
         }
         return payment;
     }
